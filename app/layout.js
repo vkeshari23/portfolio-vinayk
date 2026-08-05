@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 export const metadata = {
   title: "Vinay Keshari — Full Stack Developer",
   description:
-    "Full Stack Developer (MERN & Next.js) with 1.5+ years of experience building scalable, production-grade web applications across fintech, e-commerce, and enterprise domains.",
+    "Full Stack Developer (MERN & Next.js) with 10+ months of industry experience and 5+ months freelance, building scalable, production-grade web applications across fintech, e-commerce, and enterprise domains.",
   openGraph: {
     title: "Vinay Keshari — Full Stack Developer",
     description: "MERN & Next.js developer building production-grade web applications.",

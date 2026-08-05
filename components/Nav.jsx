@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import HireModal from "./HireModal";
+import { RESUME_URL, downloadResume } from "./resume";
 
 const LINKS = [
+  ["Home", "#home"],
   ["About", "#about"],
   ["Skills", "#skills"],
-  ["Experience", "#experience"],
   ["Projects", "#projects"],
-  ["Resume", "#resume"],
   ["Contact", "#contact"],
 ];
 
@@ -16,6 +16,11 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
 
+  // `mounted` keeps the overlay in the DOM long enough to animate closed;
+  // `shown` drives the .open class one frame later so the fade-in actually runs.
+  const [mounted, setMounted] = useState(false);
+  const [shown, setShown] = useState(false);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
     onScroll();
@@ -23,24 +28,53 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // never leave the mobile overlay open when the layout goes back to desktop
+  useEffect(() => {
+    const onResize = () => window.innerWidth > 900 && setOpen(false);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      setMounted(true);
+      const t = setTimeout(() => setShown(true), 20);
+      return () => clearTimeout(t);
+    }
+    setShown(false);
+    const t = setTimeout(() => setMounted(false), 400);
+    return () => clearTimeout(t);
+  }, [open]);
+
   return (
     <>
-      {/* nav stays fixed at the top at all times */}
+      {/* sticky: stays pinned to the top through every scroll */}
       <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
         <div className="container nav-inner">
-          <a href="#top" className="logo">
-            Vinay<span> Keshari</span>
+          <a href="#home" className="logo">
+            Vinay&nbsp;<span>Keshari</span>
           </a>
+
           <div className="nav-links">
             {LINKS.map(([label, href]) => (
               <a key={href} href={href}>{label}</a>
             ))}
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={downloadResume}
+            >
+              Resume
+            </a>
           </div>
+
           <button className="nav-cta" onClick={() => setModal(true)}>
             Hire Me
           </button>
           <button
             aria-label="Menu"
+            aria-expanded={open}
             className={`hamburger ${open ? "open" : ""}`}
             onClick={() => setOpen(!open)}
           >
@@ -49,20 +83,34 @@ export default function Nav() {
         </div>
       </nav>
 
-      <div className={`mobile-menu ${open ? "open" : ""}`}>
+      {/* `hidden` guarantees this never flashes as a bare list of links,
+          even before the stylesheet has loaded */}
+      <div className={`mobile-menu ${shown ? "open" : ""}`} hidden={!mounted}>
         {LINKS.map(([label, href], i) => (
           <a
             key={href}
             href={href}
-            style={{ transitionDelay: open ? `${0.08 * i + 0.1}s` : "0s" }}
+            style={{ transitionDelay: shown ? `${0.08 * i + 0.1}s` : "0s" }}
             onClick={() => setOpen(false)}
           >
             {label}
           </a>
         ))}
         <a
+          href={RESUME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ transitionDelay: shown ? `${0.08 * LINKS.length + 0.1}s` : "0s" }}
+          onClick={() => {
+            downloadResume();
+            setOpen(false);
+          }}
+        >
+          Resume
+        </a>
+        <a
           href="#"
-          style={{ transitionDelay: open ? "0.55s" : "0s", color: "var(--blue-2)" }}
+          style={{ transitionDelay: shown ? "0.62s" : "0s", color: "var(--blue-2)" }}
           onClick={(e) => {
             e.preventDefault();
             setOpen(false);

@@ -3,16 +3,28 @@ import Nav from "../components/Nav";
 import Hero from "../components/Hero";
 import Reveal from "../components/Reveal";
 import StatCard from "../components/StatCard";
+import ResumeButtons from "../components/ResumeButtons";
+import ResumePreview from "../components/ResumePreview";
 
 const SKILLS = [
-  "JavaScript", "TypeScript", "React.js", "Next.js", "Node.js", "Express.js",
-  "NestJS", "PostgreSQL", "MongoDB", "GraphQL", "Tailwind CSS", "Chakra UI",
-  "HTML5", "CSS3", "REST APIs", "Git", "Responsive Design", "Problem Solving",
+  "JavaScript", "TypeScript", "React.js", "Next.js", "Redux", "Redux Toolkit",
+  "React Query", "Node.js", "Express.js", "NestJS", "PostgreSQL", "MongoDB",
+  "GraphQL", "Tailwind CSS", "Chakra UI", "HTML5", "CSS3", "REST APIs",
+  "Git", "CI/CD", "OOP", "DSA", "Responsive Design",
+];
+
+const SOFT_SKILLS = [
+  ["🧩", "Problem Solving", "Breaking messy requirements down into small, shippable pieces."],
+  ["⏱️", "Time Management", "Juggling parallel projects and deadlines without dropping quality."],
+  ["🌱", "Adaptability", "Picking up new stacks and codebases fast and staying productive through change."],
+  ["🎯", "Ownership", "Taking a feature from first commit to production and supporting it after."],
+  ["🗣️", "Communication", "Explaining technical work clearly to clients and non-technical teammates."],
+  ["🤝", "Team Collaboration", "Working closely with designers, backend devs and QA to ship on time."],
 ];
 
 const STATS = [
-  { value: "1.5", suffix: "+", label: "Years Experience" },
-  { value: "6", suffix: "+", label: "Projects Delivered" },
+  { value: "1", suffix: "+", label: "Years Experience" },
+  { value: "7", suffix: "+", label: "Projects Delivered" },
   { value: "2", suffix: "", label: "Companies" },
   { value: "1", suffix: "", label: "Product Award" },
 ];
@@ -31,25 +43,52 @@ const EXPERIENCE = [
     stack: ["Next.js", "Tailwind CSS", "Node.js", "Express", "PostgreSQL"],
   },
   {
+    role: "Freelance Full Stack Developer",
+    company: "Remote",
+    when: "5+ Months",
+    points: [
+      "Partnered directly with a startup client to translate business and design requirements into a production-ready website.",
+      "Owned the full delivery cycle — UI design, development, and deployment — as an independent freelance developer.",
+    ],
+    stack: ["Next.js", "Tailwind CSS", "MongoDB", "Express", "Node.js"],
+  },
+  {
     role: "Full Stack Developer (SDE-1)",
     company: "Sheshi AI",
     when: "9 Months",
     points: [
       "Contributed to Sheshi FR2.0, a financial reporting platform, delivering features across the full stack from UI to database.",
       "Built dynamic, high-performance interfaces with Next.js and Tailwind CSS, backed by scalable services using Node.js, NestJS, and PostgreSQL.",
-      "Awarded the \u201CFingerprint of Sheshi FR2.0\u201D for outstanding contribution to the product's core development.",
+      "Awarded the “Fingerprint of Sheshi FR2.0” for outstanding contribution to the product's core development.",
     ],
     stack: ["Next.js", "Tailwind CSS", "Node.js", "NestJS", "PostgreSQL"],
   },
 ];
 
+const EDUCATION = [
+  {
+    icon: "🎓",
+    course: "B.Tech in Computer Science",
+    school: "B.N. College of Engineering and Technology, Lucknow",
+    note: "Bachelor of Technology — the engineering foundation behind how I approach systems.",
+  },
+  {
+    icon: "💻",
+    course: "Full Stack Web Development",
+    school: "Masai School, Bangalore",
+    note: "Intensive full stack program focused on the MERN stack, DSA, and real-world problem solving.",
+  },
+];
+
 const PROJECTS = [
   {
-    icon: "📊",
-    kind: "Industry",
-    name: "Sheshi FR2.0",
-    desc: "A financial reporting platform delivering dynamic report generation and data-heavy dashboards. Contributed across the full stack and earned the product's core-contributor award.",
-    stack: ["Next.js", "NestJS", "PostgreSQL"],
+    icon: "🚀",
+    kind: "Freelance",
+    name: "Futureloopix — Company Website",
+    desc: "Designed and developed the complete frontend of Futureloopix, a startup's official company website, based on client requirements. Built a custom, fully responsive UI shipped end to end as a live production website.",
+    stack: ["Next.js", "Tailwind CSS"],
+    live: "https://www.futureloopix.com/",
+    liveLabel: "Live Site",
   },
   {
     icon: "🛍️",
@@ -57,6 +96,7 @@ const PROJECTS = [
     name: "Divyamarga",
     desc: "A hybrid platform fusing an astrology consultation app with a full e-commerce experience — product catalog, cart, and checkout — in a single seamless product.",
     stack: ["Next.js", "Node.js", "PostgreSQL"],
+    live: "https://preview.divyamaarg.com/",
   },
   {
     icon: "🛕",
@@ -64,6 +104,24 @@ const PROJECTS = [
     name: "Sai Samasthana",
     desc: "A record-management system for a spiritual organization — tracking devotees, temples, and volunteers with centralized data and reporting.",
     stack: ["Next.js", "Express", "PostgreSQL"],
+    live: "https://saisamsthana.app/",
+  },
+  {
+    icon: "💰",
+    kind: "Personal",
+    name: "Personal Finance Tracker",
+    desc: "Track income, expenses, and savings with daily, weekly, monthly, yearly, and all-time filters — visualized through interactive GraphQL-powered charts.",
+    stack: ["React.js", "Node.js", "Express", "MongoDB", "GraphQL"],
+    live: "https://pft-rkx5.vercel.app/",
+  },
+  {
+    icon: "📊",
+    kind: "Industry",
+    name: "Sheshi FR2.0",
+    desc: "A financial reporting platform delivering dynamic report generation and data-heavy dashboards. Contributed across the full stack and earned the product's core-contributor award.",
+    stack: ["Next.js", "NestJS", "PostgreSQL"],
+    live: null,
+    privateNote: "Internal product — no public link",
   },
   {
     icon: "🙏",
@@ -71,20 +129,17 @@ const PROJECTS = [
     name: "Gurumurthy Guruji",
     desc: "A polished personal website for Gurumurthy Guruji, built for fast loads, clean content presentation, and full responsiveness across devices.",
     stack: ["Next.js", "Tailwind CSS", "Node.js"],
-  },
-  {
-    icon: "💰",
-    kind: "Personal",
-    name: "Personal Finance Tracker",
-    desc: "Track income, expenses, and savings with daily, weekly, monthly, yearly, and all-time filters — visualized through interactive GraphQL-powered charts.",
-    stack: ["React", "Node.js", "MongoDB", "GraphQL"],
+    live: null,
+    privateNote: "Client-owned — no public link",
   },
   {
     icon: "🎥",
     kind: "Personal",
     name: "Live Video Conferencing",
     desc: "A real-time video conferencing platform supporting live multi-user meetings, with a collaborative in-call notepad for shared note-taking.",
-    stack: ["MERN", "WebRTC", "Socket.io"],
+    stack: ["MongoDB", "Express", "React", "Node.js"],
+    live: null,
+    privateNote: "Under development — no live link yet",
   },
 ];
 
@@ -98,20 +153,10 @@ export default function Home() {
       <Effects />
       <Nav />
       <main>
+        {/* HOME */}
         <Hero />
 
-        {/* STATS */}
-        <div className="container">
-          <div className="stats">
-            {STATS.map((s, i) => (
-              <Reveal key={s.label} dir="zoom" delay={i * 100}>
-                <StatCard value={s.value} suffix={s.suffix} label={s.label} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* ABOUT */}
+        {/* ABOUT — intro, stats, experience & education all live here */}
         <section id="about">
           <div className="container">
             <Reveal>
@@ -127,10 +172,65 @@ export default function Home() {
                 and Technology, Lucknow, I sharpened my skills in full stack development and
                 problem solving at Masai School, Bangalore. Since then I&apos;ve shipped
                 production software at Sheshi AI and Tatvam AI Labs — from financial reporting
-                platforms to e-commerce and organizational management systems. I love owning
-                features from database schema to the final pixel.
+                platforms to e-commerce and organizational management systems — alongside
+                freelance work like the Future Loopix website. I love owning features from
+                database schema to the final pixel.
               </p>
             </Reveal>
+
+            <div className="stats">
+              {STATS.map((s, i) => (
+                <Reveal key={s.label} dir="zoom" delay={i * 100}>
+                  <StatCard value={s.value} suffix={s.suffix} label={s.label} />
+                </Reveal>
+              ))}
+            </div>
+
+            {/* career progression */}
+            <Reveal>
+              <h3 className="sub-title">Experience &amp; career progression</h3>
+            </Reveal>
+            <div className="timeline">
+              {EXPERIENCE.map((job, i) => (
+                <Reveal key={job.company} dir="left" delay={i * 130}>
+                  <div className="tl-item">
+                    <div className="tl-dot" />
+                    <div className="tl-card">
+                      <div className="tl-head">
+                        <div className="tl-role">{job.role}</div>
+                        <div className="tl-when">{job.when}</div>
+                      </div>
+                      <div className="tl-company">{job.company}</div>
+                      <ul>
+                        {job.points.map((p, j) => <li key={j}>{p}</li>)}
+                      </ul>
+                      <div className="tl-stack">
+                        {job.stack.map((t) => <span className="tag" key={t}>{t}</span>)}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            {/* education */}
+            <Reveal>
+              <h3 className="sub-title">Education</h3>
+            </Reveal>
+            <div className="edu-grid">
+              {EDUCATION.map((e, i) => (
+                <Reveal key={e.school} dir={i === 0 ? "left" : "right"} delay={i * 120}>
+                  <div className="edu-card">
+                    <div className="edu-icon">{e.icon}</div>
+                    <div>
+                      <h4>{e.course}</h4>
+                      <div className="edu-school">{e.school}</div>
+                      <p>{e.note}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -165,10 +265,10 @@ export default function Home() {
           <div className="container">
             <div className="skill-groups">
               {[
-                ["Frontend", "React.js · Next.js · Tailwind CSS · Chakra UI · Responsive, SEO-friendly interfaces"],
+                ["Frontend", "React.js · Next.js · Redux & Redux Toolkit · TanStack React Query · Tailwind CSS · Chakra UI · Responsive, SEO-friendly interfaces"],
                 ["Backend", "Node.js · Express.js · NestJS · GraphQL · REST API design & integration"],
                 ["Databases", "PostgreSQL · MongoDB · schema design, queries & data modeling"],
-                ["Core", "JavaScript · TypeScript · Git · Data Structures & Problem Solving"],
+                ["Core", "JavaScript · TypeScript · Git · CI/CD pipelines · OOP · Data Structures & Algorithms"],
               ].map(([title, body], i) => (
                 <Reveal key={title} delay={i * 110}>
                   <div className="skill-group">
@@ -178,35 +278,19 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* EXPERIENCE */}
-        <section id="experience">
-          <div className="container">
+            {/* soft skills */}
             <Reveal>
-              <div className="eyebrow">Experience</div>
-              <h2 className="section-title">
-                Where I&apos;ve <span className="accent">worked</span>
-              </h2>
+              <h3 className="sub-title">Soft skills</h3>
             </Reveal>
-            <div className="timeline">
-              {EXPERIENCE.map((job, i) => (
-                <Reveal key={job.company} dir="left" delay={i * 130}>
-                  <div className="tl-item">
-                    <div className="tl-dot" />
-                    <div className="tl-card">
-                      <div className="tl-head">
-                        <div className="tl-role">{job.role}</div>
-                        <div className="tl-when">{job.when}</div>
-                      </div>
-                      <div className="tl-company">{job.company}</div>
-                      <ul>
-                        {job.points.map((p, j) => <li key={j}>{p}</li>)}
-                      </ul>
-                      <div className="tl-stack">
-                        {job.stack.map((t) => <span className="tag" key={t}>{t}</span>)}
-                      </div>
+            <div className="soft-grid">
+              {SOFT_SKILLS.map(([icon, title, body], i) => (
+                <Reveal key={title} delay={(i % 3) * 100}>
+                  <div className="soft-card">
+                    <span className="soft-icon">{icon}</span>
+                    <div>
+                      <h4>{title}</h4>
+                      <p>{body}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -236,6 +320,24 @@ export default function Home() {
                     <p>{p.desc}</p>
                     <div className="tl-stack">
                       {p.stack.map((t) => <span className="tag" key={t}>{t}</span>)}
+                    </div>
+                    <div className="project-links">
+                      {p.live ? (
+                        /* every live link opens in its own new tab */
+                        <a
+                          className="live-link"
+                          href={p.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {p.liveLabel || "Live Demo"} <span className="arr">↗</span>
+                        </a>
+                      ) : (
+                        /* no deploy link available — rendered as inert text, not a link */
+                        <span className="live-link muted" aria-disabled="true">
+                          {p.privateNote}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </Reveal>
@@ -293,26 +395,16 @@ export default function Home() {
                     grab a copy below or preview it right here.
                   </p>
                   <ul className="resume-points">
-                    <li>1.5+ years as a Full Stack Developer at Sheshi AI &amp; Tatvam AI Labs</li>
-                    <li>4 industry products shipped — fintech, e-commerce &amp; management systems</li>
+                    <li>10+ months of industry experience at Sheshi AI &amp; Tatvam AI Labs, plus 5+ months freelance</li>
+                    <li>Products shipped across fintech, e-commerce &amp; management systems, plus freelance client websites</li>
                     <li>MERN stack, Next.js, NestJS, PostgreSQL &amp; MongoDB expertise</li>
                     <li>&#8220;Fingerprint of Sheshi FR2.0&#8221; product award winner</li>
                   </ul>
-                  <div className="resume-actions">
-                    <a className="btn btn-primary" href="/Vinay_Keshari_Resume.pdf" download="Vinay_Keshari_Resume.pdf">
-                      <span className="dl-ico">⬇</span> Download PDF
-                    </a>
-                    <a className="btn btn-ghost" href="/Vinay_Keshari_Resume.pdf" target="_blank" rel="noreferrer">
-                      👁 View Online
-                    </a>
-                  </div>
+                  <ResumeButtons />
                 </div>
               </Reveal>
               <Reveal dir="right" delay={130}>
-                <a href="/Vinay_Keshari_Resume.pdf" target="_blank" rel="noreferrer" className="resume-frame">
-                  <img src="/resume-preview.jpg" alt="Preview of Vinay Keshari's resume" />
-                  <span className="peek">Open Full Resume →</span>
-                </a>
+                <ResumePreview />
               </Reveal>
             </div>
           </div>
