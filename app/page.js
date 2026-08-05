@@ -391,7 +391,7 @@ export default function Home() {
               <Reveal dir="left">
                 <div>
                   <p style={{ color: "var(--muted)", lineHeight: 1.85, fontSize: 16, marginBottom: 24 }}>
-                    A single-page, ATS-friendly resume covering my full journey —
+                    A single-page resume covering my full journey —
                     grab a copy below or preview it right here.
                   </p>
                   <ul className="resume-points">
