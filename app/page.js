@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal";
 import StatCard from "../components/StatCard";
 import ResumeButtons from "../components/ResumeButtons";
 import ResumePreview from "../components/ResumePreview";
+import DemoCreds from "../components/DemoCreds";
 
 const SKILLS = [
   "JavaScript", "TypeScript", "React.js", "Next.js", "Redux", "Redux Toolkit",
@@ -105,6 +106,12 @@ const PROJECTS = [
     desc: "A record-management system for a spiritual organization — tracking devotees, temples, and volunteers with centralized data and reporting.",
     stack: ["Next.js", "Express", "PostgreSQL"],
     live: "https://saisamsthana.app/",
+    liveLabel: "View Live App",
+    accessNote: "Staff CRM — opens on a login screen",
+    // This demo opens straight onto a login screen. Fill in a demo account
+    // seeded with dummy data (never real devotee/billing records) and the
+    // credentials box appears on the card automatically.
+    demo: null,
   },
   {
     icon: "💰",
@@ -113,6 +120,10 @@ const PROJECTS = [
     desc: "Track income, expenses, and savings with daily, weekly, monthly, yearly, and all-time filters — visualized through interactive GraphQL-powered charts.",
     stack: ["React.js", "Node.js", "Express", "MongoDB", "GraphQL"],
     live: "https://pft-rkx5.vercel.app/",
+    accessNote: "Landing page is open — the dashboard needs an account",
+    // The landing page is public but the dashboard needs an account.
+    // Add a demo account here so reviewers can see the actual app.
+    demo: null,
   },
   {
     icon: "📊",
@@ -321,6 +332,14 @@ export default function Home() {
                     <div className="tl-stack">
                       {p.stack.map((t) => <span className="tag" key={t}>{t}</span>)}
                     </div>
+                    {/* login-gated demos carry credentials so anyone can get in */}
+                    {p.demo ? (
+                      <DemoCreds
+                        email={p.demo.email}
+                        password={p.demo.password}
+                        note={p.demo.note}
+                      />
+                    ) : null}
                     <div className="project-links">
                       {p.live ? (
                         /* every live link opens in its own new tab */
@@ -332,12 +351,18 @@ export default function Home() {
                         >
                           {p.liveLabel || "Live Demo"} <span className="arr">↗</span>
                         </a>
-                      ) : (
+                      ) : null}
+                      {/* say up front when a demo sits behind a login, so the
+                          link never lands on an unexplained wall */}
+                      {p.live && p.accessNote ? (
+                        <span className="access-note">{p.accessNote}</span>
+                      ) : null}
+                      {!p.live ? (
                         /* no deploy link available — rendered as inert text, not a link */
                         <span className="live-link muted" aria-disabled="true">
                           {p.privateNote}
                         </span>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </Reveal>
@@ -389,19 +414,7 @@ export default function Home() {
             </Reveal>
             <div className="resume-grid">
               <Reveal dir="left">
-                <div>
-                  <p style={{ color: "var(--muted)", lineHeight: 1.85, fontSize: 16, marginBottom: 24 }}>
-                    A single-page resume covering my full journey —
-                    grab a copy below or preview it right here.
-                  </p>
-                  <ul className="resume-points">
-                    <li>10+ months of industry experience at Sheshi AI &amp; Tatvam AI Labs, plus 5+ months freelance</li>
-                    <li>Products shipped across fintech, e-commerce &amp; management systems, plus freelance client websites</li>
-                    <li>MERN stack, Next.js, NestJS, PostgreSQL &amp; MongoDB expertise</li>
-                    <li>&#8220;Fingerprint of Sheshi FR2.0&#8221; product award winner</li>
-                  </ul>
-                  <ResumeButtons />
-                </div>
+                <ResumeButtons />
               </Reveal>
               <Reveal dir="right" delay={130}>
                 <ResumePreview />

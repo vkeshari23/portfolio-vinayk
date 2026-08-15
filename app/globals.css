@@ -501,6 +501,52 @@ section { padding: 110px 0; scroll-margin-top: 88px; }
 .project-card p { color: var(--muted); font-size: 14.5px; line-height: 1.75; margin-bottom: 18px; }
 .project-card .tl-stack { margin-bottom: 4px; }
 
+/* sits under a live link whose target opens on a login screen */
+.access-note {
+  display: block; margin-top: 10px;
+  font-size: 11.5px; line-height: 1.5; color: var(--muted);
+}
+
+/* demo credentials for login-gated projects */
+.demo-creds {
+  margin-top: 16px; padding: 14px 16px; border-radius: 14px;
+  background: rgba(56, 214, 245, .05);
+  border: 1px dashed rgba(56, 214, 245, .3);
+  position: relative; z-index: 2;
+}
+.demo-creds-head {
+  font-size: 12px; font-weight: 700; letter-spacing: .4px;
+  color: var(--cyan); margin-bottom: 10px;
+}
+/* label sits on its own line so the value gets the card's full width —
+   project cards are ~350px, which wraps a normal email otherwise */
+.demo-row {
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: center; gap: 8px;
+  font-size: 12.5px; margin-bottom: 10px;
+}
+.demo-row:last-of-type { margin-bottom: 0; }
+.demo-label {
+  grid-column: 1 / -1;
+  color: var(--muted); font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: .6px;
+}
+.demo-row code {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  color: var(--text); background: rgba(255,255,255,.05);
+  padding: 4px 9px; border-radius: 6px;
+  overflow-wrap: anywhere; min-width: 0;
+}
+.demo-copy {
+  flex-shrink: 0; cursor: pointer; font-family: inherit;
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+  color: var(--cyan); background: transparent;
+  border: 1px solid rgba(56,214,245,.35);
+  transition: background .25s, color .25s;
+}
+.demo-copy:hover { background: var(--cyan); color: #041018; }
+.demo-note { color: var(--muted); font-size: 11.5px; margin-top: 9px; line-height: 1.6; }
+
 /* live demo link — pinned to the bottom of every card so they line up */
 .project-links { margin-top: auto; padding-top: 20px; position: relative; z-index: 2; }
 .live-link {
@@ -569,12 +615,7 @@ footer b { color: var(--blue-2); }
 
 /* ============ RESUME SECTION ============ */
 .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-.resume-points li {
-  color: var(--muted); font-size: 15px; line-height: 1.8;
-  padding-left: 26px; position: relative; margin-bottom: 12px;
-}
-.resume-points li::before { content: "✓"; position: absolute; left: 0; color: var(--cyan); font-weight: 700; }
-.resume-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 30px; }
+.resume-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 .btn .dl-ico { display: inline-block; transition: transform .3s; }
 .btn:hover .dl-ico { transform: translateY(3px); }
 
